@@ -16,7 +16,7 @@ const Page = () => {
         <Route path="/home" element={<HomePage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/category" element={<CategoryPage />} />
-        <Route path="/product" element={<ProductPage />} />
+        {/* <Route path="/product" element={<ProductPage />} /> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/customer" element={<CustomerPage />} />
       </Routes>

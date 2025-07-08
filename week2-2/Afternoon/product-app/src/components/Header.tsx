@@ -9,7 +9,7 @@ const Header = () => {
         <div className={styles.headerContent}>
           <div className={styles.linkContainer}>
             <NavLink
-              to="/"
+              to="/home"
               className={styles.link}
               style={({ isActive }: { isActive: boolean }) => ({
                 color: isActive ? "black" : "white",
@@ -36,7 +36,7 @@ const Header = () => {
               Category
             </NavLink>
             <NavLink
-              to="/product"
+              to="/"
               className={styles.link}
               style={({ isActive }: { isActive: boolean }) => ({
                 color: isActive ? "black" : "white",
