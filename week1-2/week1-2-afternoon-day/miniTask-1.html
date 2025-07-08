@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>miniTask-1</title>
+  </head>
+  <body>
+    <div id="textDisplay">Hello</div>
+    <button id="changeTextBtn">Thay đổi nội dung</button>
+    <script>
+      const changeTextBtn = document.getElementById("changeTextBtn");
+      const textDisplay = document.getElementById("textDisplay");
+
+      changeTextBtn.addEventListener("click", function () {
+        textDisplay.textContent = "Hello, JavaScript!";
+      });
+    </script>
+  </body>
+</html>

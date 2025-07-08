@@ -1,0 +1,20 @@
+.button {
+  width: 300px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+.button span {
+  display: flex;
+  column-gap: 10px;
+}
+.black {
+  background-color: black;
+  color: #fff;
+}
+.white {
+  background: #fff;
+  color: black;
+  border: 1px solid #ccc;
+}

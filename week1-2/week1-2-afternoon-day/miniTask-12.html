@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>miniTask-12</title>
+  </head>
+  <body>
+    <p id="greetingText"></p>
+    <script>
+      const greetingText = document.getElementById("greetingText");
+      const currentHour = new Date().getHours();
+      let greeting;
+      if (currentHour < 12) {
+        greeting = "Chào buổi sáng";
+      } else if (currentHour < 18) {
+        greeting = "Chào buổi chiều";
+      } else {
+        greeting = "Chào buổi tối";
+      }
+      greetingText.textContent = greeting;
+      greetingText.style.fontSize = "24px";
+      greetingText.style.color = "blue";
+      greetingText.style.fontWeight = "bold";
+      greetingText.style.textAlign = "center";
+    </script>
+  </body>
+</html>

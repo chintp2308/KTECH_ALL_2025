@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>miniTask-7</title>
+  </head>
+  <!-- <body>
+    <button class="colorBtn">Tạo</button>
+    <button class="colorBtn">Xoá</button>
+    <button class="colorBtn">Cập nhật</button>
+    <button class="colorBtn">Hiển thị</button>
+    <script>
+      const colorBtn = document.querySelectorAll(".colorBtn");
+      colorBtn.forEach(function (button) {
+        button.addEventListener("click", function () {
+          alert(` ${this.textContent} `);
+        });
+      });
+    </script>
+  </body> -->
+  <body>
+    <button class="colorBtn" onclick="handleClick(this)">Tạo</button>
+    <button class="colorBtn" onclick="handleClick(this)">Xoá</button>
+    <button class="colorBtn" onclick="handleClick(this)">Cập nhật</button>
+    <button class="colorBtn" onclick="handleClick(this)">Hiển thị</button>
+    <script>
+      function handleClick(button) {
+        alert(` ${button.textContent} `);
+      }
+    </script>
+  </body>
+</html>

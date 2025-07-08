@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 50px;
+  height: 60px;
+  border: none;
+  font-family: "Montserrat", sans-serif;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 17%;
+  height: 100%;
+  color: white;
+}
+.home {
+  background-color: #31c8dd;
+}
+.about {
+  background-color: #f75354;
+}
+
+.feature {
+  background-color: #51d566;
+}
+.service {
+  background-color: #fcd518;
+}
+.gallery {
+  background-color: #f78153;
+}
+.blog {
+  background-color: #fe60e8;
+}

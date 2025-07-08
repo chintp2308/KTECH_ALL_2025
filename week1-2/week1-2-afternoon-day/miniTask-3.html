@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>miniTask-3</title>
+  </head>
+  <body>
+    <input id="itemInput"></input>
+<button class="addItemBtn">Tạo</button>
+<ul id="itemList"></ul>
+<script>
+    const itemInput = document.getElementById("itemInput");
+    const addItemBtn = document.querySelector(".addItemBtn");
+    const itemList = document.getElementById("itemList");
+    addItemBtn.addEventListener ("click",function(){
+        const newItemText = itemInput.value.trim();
+        if (newItemText !== "") {
+            const newItem = document.createElement("li");
+            newItem.textContent = newItemText;
+            itemList.appendChild(newItem);
+            itemInput.value = ""; 
+        } else {
+            alert("Please enter an item.");
+        }
+    })
+    </script>
+  </body>
+</html>

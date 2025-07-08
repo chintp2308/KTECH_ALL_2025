@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+.inform {
+  height: 100px;
+  width: 330px;
+  border: none;
+  margin: 20px 0 5px 0;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 20px;
+  padding: 0 15px 0 0;
+  gap: 15px;
+}
+.font1 {
+  font-size: 19px !important;
+  color: black;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.font2 {
+  font-size: 24px !important;
+  font-weight: bolder;
+  height: 100%;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+.inform_content {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  align-items: center;
+}

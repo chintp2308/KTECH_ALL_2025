@@ -1,0 +1,15 @@
+.app {
+  width: 370px;
+  height: 700px;
+  font-family: "Arial", sans-serif;
+  padding: 20px;
+  background: linear-gradient(to bottom right, #b1d3ff, #ebf7ff);
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+}

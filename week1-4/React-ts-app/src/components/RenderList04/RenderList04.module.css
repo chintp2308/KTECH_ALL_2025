@@ -1,0 +1,52 @@
+.section_body_RenderList04 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.article_item {
+  width: 200px;
+  height: 350px;
+  border-radius: 10px;
+}
+img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+.article_name {
+  font-size: 17px;
+  font-weight: 600;
+  color: #000;
+  margin: 10px;
+  height: 47px;
+}
+.article_extra {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  margin: 0px 10px;
+}
+.old_price {
+  text-decoration: line-through;
+  color: #888;
+  font-size: 17px;
+}
+.article_money {
+  color: red;
+  font-weight: 600;
+  font-size: 17px;
+}
+.article_sale {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: red;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+.article_thumbnail {
+  position: relative;
+}

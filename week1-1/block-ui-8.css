@@ -1,0 +1,82 @@
+.container {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 32px 24px;
+  max-width: 600px;
+  margin: 32px auto;
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.skill-label {
+  display: flex;
+  align-items: center;
+  width: 120px;
+  font-size: 17px;
+  font-weight: 600;
+  margin-left: 20px;
+  border-radius: 5px;
+  padding: 7px 0;
+  color: black;
+}
+
+.skill-bar-bg {
+  flex: 1;
+  height: 12px;
+  background: #f5f5f5;
+  overflow: hidden;
+  margin-left: 10px;
+}
+
+.skill-bar {
+  height: 100%;
+}
+
+.skill-bar.html {
+  width: 70%;
+  background: #51d566;
+}
+.skill-bar.css {
+  width: 50%;
+  background: #f65454;
+}
+.skill-bar.php {
+  width: 30%;
+  background: #33cadd;
+}
+.skill-bar.java {
+  width: 65%;
+  background: #fcd518;
+}
+.skill-bar.dotnet {
+  width: 40%;
+  background: #cb79e6;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+.icon.html {
+  background-color: #51d566;
+}
+.icon.css {
+  background-color: #f65454;
+}
+.icon.php {
+  background-color: #33cadd;
+}
+.icon.java {
+  background-color: #fcd518;
+}
+.icon.dotnet {
+  background-color: #cb79e6;
+}

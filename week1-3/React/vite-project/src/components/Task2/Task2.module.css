@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  border: 1px solid #ccc;
+  align-items: center;
+  width: 330px;
+  margin: 10px;
+  height: 51px;
+  border-radius: 20px;
+  gap: 5px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 0 10px 0 10px;
+}
+.input {
+  border: none;
+  outline: none;
+  display: flex;
+  width: 100%;
+}
+.leftIcon,
+.rightIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+/* Hình tròn */
+.rightIconCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* Hình chữ nhật bo nhẹ cho icon điện thoại */
+.rightIconRounded {
+  padding: 8px 8px;
+  border-radius: 10px;
+}
+.staticText {
+  flex: 1;
+  font-size: 16px;
+  color: black;
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+}
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>miniTask-11</title>
+  </head>
+  <body>
+    <button id="hideParaBtn">Ẩn</button>
+    <p id="infoPara">hiii</p>
+
+    <script>
+      const hideParaBtn = document.getElementById("hideParaBtn");
+      const infoPara = document.getElementById("infoPara");
+
+      hideParaBtn.addEventListener("click", function () {
+        if (infoPara.style.display === "none") {
+          infoPara.style.display = "block";
+          hideParaBtn.textContent = "Ẩn";
+        } else {
+          infoPara.style.display = "none";
+          hideParaBtn.textContent = "Hiện";
+        }
+      });
+    </script>
+  </body>
+</html>

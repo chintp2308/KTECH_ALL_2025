@@ -1,0 +1,92 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f7fa;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 450px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px 30px 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+.form-group {
+  margin-bottom: 18px;
+}
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #222;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+  width: 95%;
+  padding: 8px 10px;
+  border: 1.5px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border 0.2s;
+  background: #fafbfc;
+}
+input[type="file"] {
+  border: none;
+  background: none;
+  padding: 0;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+.radio-group,
+.checkbox-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 4px;
+}
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+button[type="submit"]:hover {
+  background: #0056b3;
+}
+.error-message {
+  color: #d93025;
+  font-size: 0.95em;
+  margin-top: 2px;
+  min-height: 18px;
+  display: block;
+}
+.invalid {
+  border-color: #d93025 !important;
+  background: #fff0f0;
+}
+@media (max-width: 600px) {
+  .container {
+    padding: 15px 5vw;
+  }
+}

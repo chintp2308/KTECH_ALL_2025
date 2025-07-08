@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>miniTask-10</title>
+  </head>
+  <body>
+    <input id="emailInput" />
+    <button id="validateBtn">Xác nhận</button>
+
+    <script>
+      const emailInput = document.getElementById("emailInput");
+      const validateBtn = document.getElementById("validateBtn");
+
+      validateBtn.addEventListener("click", function () {
+        const email = emailInput.value;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (emailPattern.test(email)) {
+          alert("Email hợp lệ");
+        } else {
+          alert("Email không hợp lệ");
+        }
+      });
+    </script>
+  </body>
+</html>

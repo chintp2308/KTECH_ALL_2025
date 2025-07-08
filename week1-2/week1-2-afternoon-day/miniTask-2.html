@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>miniTask-1</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: rgb(109, 136, 235);
+        margin: 20px;
+      }
+      .highlight {
+        background-color: rgb(247, 73, 34);
+      }
+    </style>
+  </head>
+  <body>
+    <button id="toggleHighlightBtn">Toggle Highlight</button>
+    <div class="box"></div>
+    <script>
+      const toggleHighlightBtn = document.getElementById("toggleHighlightBtn");
+      const box = document.querySelector(".box");
+      toggleHighlightBtn.addEventListener("click", function () {
+        box.classList.toggle("highlight");
+      });
+    </script>
+  </body>
+</html>

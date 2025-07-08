@@ -1,0 +1,239 @@
+.container {
+  background: #e6edf2;
+  min-height: 100vh;
+  padding: 16px 0 0 0;
+  border-radius: 28px;
+  width: 430px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  border-radius: 22px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  background: #fff;
+  margin-bottom: 18px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  width: 370px;
+  min-height: 70px;
+  box-sizing: border-box;
+}
+
+.placeCard {
+  background: #f9fddc;
+  justify-content: flex-start;
+}
+.placeImg {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 18px;
+  border: 2px solid #fff;
+}
+.placeText {
+  flex: 1;
+}
+.placeTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.placeSubtitle {
+  font-size: 1rem;
+  color: #333;
+  opacity: 0.7;
+}
+.dots {
+  font-size: 1.5rem;
+  color: #888;
+  margin-left: 12px;
+  user-select: none;
+}
+
+.infoCard {
+  background: #eaf6ff;
+  justify-content: flex-start;
+}
+.infoIcon {
+  width: 38px;
+  height: 38px;
+  margin-right: 16px;
+}
+.infoText {
+  flex: 1;
+}
+.infoTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #222;
+}
+.infoSubtitle {
+  font-size: 0.95rem;
+  color: #666;
+  opacity: 0.8;
+}
+.infoBtn {
+  background: #7b61ff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.weatherWeek {
+  background: #fff;
+  justify-content: space-between;
+  padding: 16px 18px;
+}
+.weatherDay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.7;
+  transition: 0.2s;
+}
+.weatherDayName {
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+.weatherIcon {
+  width: 32px;
+  height: 32px;
+}
+.active {
+  opacity: 1 !important;
+  background: #eaf6ff;
+  border-radius: 12px;
+  padding: 4px 8px;
+}
+
+.tempCard {
+  background: linear-gradient(90deg, #f857a6 0%, #ff5858 100%);
+  color: #fff;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 90px;
+  position: relative;
+}
+.tempCity {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.tempWeather {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+.tempValue {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 18px;
+  align-self: center;
+}
+.tempIcon {
+  width: 38px;
+  height: 38px;
+  position: absolute;
+  right: 24px;
+  top: 18px;
+}
+
+.scheduleCard {
+  background: #fff;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 10px;
+}
+.scheduleHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.scheduleTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.scheduleSubtitle {
+  font-size: 0.95rem;
+  color: #888;
+  opacity: 0.8;
+}
+.scheduleDays {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+.scheduleDay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.7;
+  transition: 0.2s;
+}
+.scheduleTime {
+  font-size: 0.85rem;
+  color: #7b61ff;
+  margin-top: 2px;
+}
+.scheduleDay.active {
+  opacity: 1 !important;
+  background: #eaf6ff;
+  border-radius: 12px;
+  padding: 4px 8px;
+}
+
+.dateTimeCard {
+  background: #fff;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 18px 0 18px 18px;
+}
+.dateCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 18px;
+}
+.dateDay {
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: 600;
+}
+.dateNum {
+  font-size: 1.5rem;
+  color: #f857a6;
+  font-weight: 700;
+}
+.divider {
+  width: 2px;
+  height: 48px;
+  background: #e6edf2;
+  margin-right: 18px;
+  border-radius: 2px;
+}
+.dateInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.dateWeek {
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: 600;
+}
+.dateTime {
+  font-size: 1rem;
+  color: #888;
+  margin-top: 4px;
+}

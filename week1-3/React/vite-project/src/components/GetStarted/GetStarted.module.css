@@ -1,0 +1,7 @@
+.button {
+  background-color: black;
+  width: 300px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}

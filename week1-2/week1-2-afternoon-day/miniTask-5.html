@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>miniTask-5</title>
+  </head>
+  <body>
+    <button id="changeImageBtn">Thay đổi image</button>
+    <img id="mainImage" src="./doctor5.jfif" />
+    <script>
+      const changeImageBtn = document.getElementById("changeImageBtn");
+      const mainImage = document.getElementById("mainImage");
+      changeImageBtn.addEventListener("click", function () {
+        mainImage.src = "./images.webp";
+      });
+    </script>
+  </body>
+</html>
