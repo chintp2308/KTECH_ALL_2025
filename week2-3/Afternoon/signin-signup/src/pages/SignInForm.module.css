@@ -1,0 +1,141 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  height: 700px;
+  background-color: #000;
+  z-index: 10;
+  margin: 20px;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.backgroundImage {
+  background-image: url("../../public/images/h1.jpg");
+  background-size: cover;
+  position: absolute;
+  width: 350px;
+  height: 500px;
+  border-radius: 10px;
+}
+
+.formContainer {
+  position: relative;
+  width: 300px;
+  padding: 25px 20px;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 5px;
+  height: 400px;
+  width: 300px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+}
+.avatarContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nameContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  z-index: 10;
+  margin: 10px;
+  margin-top: 200px;
+}
+
+.whiteText {
+  color: #fff;
+  font-size: 14px;
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.input {
+  padding: 12px;
+  border: none;
+  background-color: #fff;
+  color: #000;
+  outline: none;
+  border-radius: 8px;
+}
+
+.agreeText {
+  font-size: 14px;
+  color: #fff;
+}
+
+.signupLink {
+  color: #00c58e;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.signInButton {
+  display: inline-block;
+  background-color: #00c58e;
+  padding: 17px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+}
+
+.toggleButton {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: none;
+  border: none;
+  color: #00c58e;
+  cursor: pointer;
+}
+
+.passwordField {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.error {
+  color: #ff8080;
+  font-size: 13px;
+  margin-top: -10px;
+  margin-bottom: 5px;
+}

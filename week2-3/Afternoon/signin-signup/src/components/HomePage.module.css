@@ -1,0 +1,127 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  height: 700px;
+  background-color: #000;
+  z-index: 10;
+  margin: 20px;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.backgroundImage {
+  background-image: url("../../public/images/h1.jpg");
+  background-size: cover;
+  position: absolute;
+  width: 350px;
+  height: 500px;
+  border-radius: 10px;
+}
+
+.formContainer {
+  position: relative;
+  width: 300px;
+  padding: 25px 20px;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 5px;
+  height: 400px;
+  width: 300px;
+  margin-top: 200px;
+}
+.homePage__header {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  position: absolute;
+  padding-left: 15px;
+  z-index: 10;
+  color: #fff;
+  margin-top: 150px;
+}
+
+.input {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 270px;
+}
+
+.primaryButton {
+  width: 100%;
+  padding: 15px;
+  background-color: #00c58e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.divider {
+  text-align: center;
+  margin: 15px 0;
+  font-weight: bold;
+  color: #fff;
+}
+
+.socialButton {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+.facebook {
+  color: #1877f2;
+}
+
+.google {
+  color: #db4437;
+}
+
+.apple {
+  color: black;
+}
+
+.footerLinks {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.forgot {
+  display: block;
+  margin-top: 8px;
+  color: #00c58e;
+  text-decoration: none;
+}
+
+.whiteText {
+  color: #fff;
+  margin-bottom: 10px;
+}
+.footerLinks__item {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.signupLink {
+  color: #00c58e;
+  font-weight: bold;
+  text-decoration: none;
+}
