@@ -1,5 +1,3 @@
-import React from "react";
-
 const PatientsPage = () => {
   return (
     <div className="flex flex-col gap-5 w-full h-full">
