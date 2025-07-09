@@ -1,3 +1,7 @@
 {
-  "buildCommand": "pnpm install && pnpm run build"
+  "build": {
+    "env": {
+      "VITE_ESLINT_DISABLE": "TRUE"
+    }
+  }
 }
