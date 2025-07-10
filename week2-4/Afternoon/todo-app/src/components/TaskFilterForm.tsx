@@ -1,13 +1,10 @@
 import { useForm } from "react-hook-form";
 import type { Filter } from "../types";
 
-// Filter form data interface
 interface FormData {
   status: string;
   priority: string;
 }
-
-// Filter criteria interface for parent component
 
 type Props = {
   onSearch: (filters: Filter) => void;

@@ -1,7 +1,5 @@
 import React from "react";
-
 import type { Task } from "../types";
-
 type Props = {
   priority: "low" | "medium" | "high";
 };
