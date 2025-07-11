@@ -28,7 +28,7 @@ const schema = yup
 
 export default function Login() {
   const { setUser } = useContext(LoginContext) as {
-    setUser: (user: any) => void;
+    setUser: (user: string | null) => void;
   };
   const navigate = useNavigate();
   const {

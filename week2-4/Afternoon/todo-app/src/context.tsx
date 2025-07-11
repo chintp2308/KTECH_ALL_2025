@@ -1,7 +1,13 @@
 // Create LoginContext to manage login state
 import { createContext } from "react";
 
-export const LoginContext = createContext({
+export interface LoginContextType {
+  user: string | null;
+  setUser: (user: string | null) => void;
+}
+
+export const LoginContext = createContext<LoginContextType>({
   user: null,
-  setUser: (user: any) => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setUser: (_: string | null) => {},
 });
