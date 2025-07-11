@@ -47,7 +47,8 @@ const OurTasks = () => {
       const matchStatus = !filters.status || task.status === filters.status;
       const matchPriority =
         !filters.priority || task.priority === filters.priority;
-      return matchStatus && matchPriority;
+      const matchTitle = !filters.title || task.title.includes(filters.title);
+      return matchStatus && matchPriority && matchTitle;
     });
     setFilteredTasks(filtered);
   };

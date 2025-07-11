@@ -47,7 +47,7 @@ const Header = () => {
         <p className="text-green-600">Welcome, {user.loggedInUser?.email}</p>{" "}
         <button
           onClick={handleLogout}
-          className="text-gray-600 hover:text-gray-200 transition duration-200 bg-green-600 text-white px-4 py-2 rounded-md cursor-pointer"
+          className="text-white  transition duration-200 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-md cursor-pointer"
         >
           Logout
         </button>

@@ -60,37 +60,31 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar Left */}
-      <div className="w-1/2 bg-[#eaf1f8] flex flex-col justify-center items-center px-10">
-        <div>
+    <div className="flex h-screen overflow-hidden bg-gray-50">
+      {/* Left side illustration */}
+      <div className="hidden lg:flex w-1/2 flex-col justify-center items-center px-10 bg-gradient-to-br from-green-100 to-green-300">
+        <div className="mb-8 w-96">
           <DotLottieReact
             src="https://lottie.host/9c779515-f688-49cc-95cd-ed152afe200f/sUDBcb4B87.lottie"
             loop
             autoplay
           />
         </div>
-        <h2 className="text-3xl font-bold text-[#2d3e50] text-center leading-snug">
+        <h2 className="text-4xl font-bold text-[#2d3e50] text-center leading-snug">
           Set Your Task <br /> on Auto-Pilot with PC
         </h2>
       </div>
 
-      {/* Form Right */}
-      <div className="w-1/2 bg-white flex justify-center items-center px-8">
+      {/* Right side login form */}
+      <div className="lg:w-1/2 w-full flex justify-center items-center px-6">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full max-w-sm text-[#2d3e50]"
+          className="w-full max-w-md bg-white p-8 rounded-xl shadow-[0_10px_40px_rgba(34,197,94,0.2)] text-[#2d3e50]"
         >
-          {/* Logo */}
-          <div className="flex items-center justify-start mb-6">
-            <img src="/images/logo.png" alt="PC" className="w-24" />
-          </div>
-
-          <h2 className="text-2xl font-bold text-green-600 mb-2">Login</h2>
-          <p className="text-sm text-gray-600 mb-6">
+          <h2 className="text-4xl font-bold text-green-600 mb-4">Login</h2>
+          <p className="text-sm text-gray-600 mb-6 leading-relaxed">
             Login to your account <br />
-            Thank you for coming back to Grovia, let’s access our best
-            recommendation contact for you.
+            Thank you for coming back to PC.
           </p>
 
           {/* Username */}
@@ -98,10 +92,10 @@ export default function Login() {
             <input
               {...register("username")}
               placeholder="Email or Phone Number"
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
             {errors.username && (
-              <p className="text-sm text-green-500 mt-1">
+              <p className="text-sm text-red-500 mt-1">
                 {errors.username.message}
               </p>
             )}
@@ -113,7 +107,7 @@ export default function Login() {
               type={showPassword ? "text" : "password"}
               {...register("password")}
               placeholder="Password"
-              className="w-full border border-gray-300 rounded px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full border border-gray-300 rounded-md px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
             <button
               type="button"
@@ -123,38 +117,28 @@ export default function Login() {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
             {errors.password && (
-              <p className="text-sm text-green-500 mt-1">
+              <p className="text-sm text-red-500 mt-1">
                 {errors.password.message}
               </p>
             )}
           </div>
 
-          {/* Remember me + Reset */}
-          <div className="flex justify-between items-center text-sm mb-5">
+          {/* Remember me */}
+          <div className="flex justify-between items-center text-sm mb-6">
             <label className="flex items-center gap-2">
               <input type="checkbox" />
-              Remember me
+              <span>Remember me</span>
             </label>
-            <a href="#" className="text-green-500 hover:underline">
-              Reset Password?
-            </a>
+            {/* <a href="#" className="text-green-500 hover:underline">Forgot?</a> */}
           </div>
 
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded font-semibold transition"
+            className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md font-semibold transition shadow-md hover:shadow-lg"
           >
             SIGN IN
           </button>
-
-          {/* Bottom Text */}
-          {/* <p className="text-center mt-4 text-sm">
-            Don’t have an account yet?{" "}
-            <a href="/register" className="text-red-500 hover:underline">
-              Join Grovia Now!
-            </a>
-          </p> */}
         </form>
       </div>
     </div>

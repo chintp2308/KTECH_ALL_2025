@@ -46,15 +46,15 @@ const schema: yup.ObjectSchema<TaskFormData> = yup.object({
   status: yup
     .mixed<"to_do" | "in_progress" | "done">()
     .required("Status is required")
-    .oneOf(["to_do", "in_progress", "done"], "Please select a valid status"),
+    .oneOf(["to_do", "in_progress", "done"]),
   priority: yup
     .mixed<"low" | "medium" | "high">()
     .required("Priority is required")
-    .oneOf(["low", "medium", "high"], "Please select a valid priority"),
+    .oneOf(["low", "medium", "high"]),
   assignee_id: yup
     .number()
     .optional()
-    .min(1, "Assignee ID cannot be empty if provided"),
+    .min(1, "Assignee ID must be greater than 0"),
 });
 
 const CreateTask = () => {
@@ -63,10 +63,9 @@ const CreateTask = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-  const onSubmit = async (data: TaskFormData): Promise<void> => {
+  } = useForm<TaskFormData>({ resolver: yupResolver(schema) });
+
+  const onSubmit = async (data: TaskFormData) => {
     try {
       const taskData: Task = {
         ...data,
@@ -77,8 +76,8 @@ const CreateTask = () => {
         updated_time: new Date(),
       };
       await createTask(taskData);
-      navigate("/our-tasks");
       toast.success("Task created successfully");
+      navigate("/our-tasks");
     } catch (error) {
       console.error("Error creating task:", error);
       toast.error("Failed to create task");
@@ -90,55 +89,88 @@ const CreateTask = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md mt-10">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">Create Task</h1>
-      <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+    <div className="max-w-4xl mx-auto p-8 bg-white rounded-3xl shadow-lg  mt-10 border border-green-200">
+      <h1 className="text-3xl font-bold mb-6 text-green-600">
+        📝 Create New Task
+      </h1>
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
+        {/* Title */}
         <div>
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Title
           </label>
           <input
             type="text"
-            id="title"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
             {...register("title")}
           />
           {errors.title && (
-            <p className="text-red-500 text-sm">{errors.title.message}</p>
+            <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
           )}
         </div>
 
+        {/* Assignee */}
         <div>
-          <label
-            htmlFor="description"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Description
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Assignee ID
           </label>
-          <textarea
-            id="description"
-            rows={3}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            {...register("description")}
+          <input
+            type="number"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            {...register("assignee_id")}
           />
-          {errors.description && (
-            <p className="text-red-500 text-sm">{errors.description.message}</p>
+          {errors.assignee_id && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.assignee_id.message}
+            </p>
           )}
         </div>
 
+        {/* Start Date */}
         <div>
-          <label
-            htmlFor="priority"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Start Date
+          </label>
+          <input
+            type="date"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            {...register("start_date")}
+          />
+          {errors.start_date && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.start_date.message}
+            </p>
+          )}
+        </div>
+
+        {/* Due Date */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Due Date
+          </label>
+          <input
+            type="date"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            {...register("due_date")}
+          />
+          {errors.due_date && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.due_date.message}
+            </p>
+          )}
+        </div>
+
+        {/* Priority */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Priority
           </label>
           <select
-            id="priority"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
             {...register("priority")}
           >
             <option value="low">Low</option>
@@ -146,95 +178,59 @@ const CreateTask = () => {
             <option value="high">High</option>
           </select>
           {errors.priority && (
-            <p className="text-red-500 text-sm">{errors.priority.message}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {errors.priority.message}
+            </p>
           )}
         </div>
 
+        {/* Status */}
         <div>
-          <label
-            htmlFor="start_date"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Start Date
-          </label>
-          <input
-            type="date"
-            id="start_date"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            {...register("start_date")}
-          />
-          {errors.start_date && (
-            <p className="text-red-500 text-sm">{errors.start_date.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label
-            htmlFor="due_date"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Due Date
-          </label>
-          <input
-            type="date"
-            id="due_date"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            {...register("due_date")}
-          />
-          {errors.due_date && (
-            <p className="text-red-500 text-sm">{errors.due_date.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label
-            htmlFor="assignee_id"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Assignee
-          </label>
-          <input
-            type="text"
-            id="assignee_id"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            {...register("assignee_id")}
-          />
-          {errors.assignee_id && (
-            <p className="text-red-500 text-sm">{errors.assignee_id.message}</p>
-          )}
-        </div>
-        <div>
-          <label
-            htmlFor="status"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Status
           </label>
           <select
-            id="status"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
             {...register("status")}
           >
             <option value="to_do">To Do</option>
             <option value="in_progress">In Progress</option>
-            <option value="completed">Completed</option>
+            <option value="done">Done</option>
           </select>
           {errors.status && (
-            <p className="text-red-500 text-sm">{errors.status.message}</p>
+            <p className="text-red-500 text-sm mt-1">{errors.status.message}</p>
           )}
         </div>
 
-        <div className="text-right space-x-4">
+        {/* Description - full width */}
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Description
+          </label>
+          <textarea
+            rows={4}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            {...register("description")}
+          />
+          {errors.description && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.description.message}
+            </p>
+          )}
+        </div>
+
+        {/* Buttons - full width */}
+        <div className="md:col-span-2 flex justify-end space-x-4">
           <button
-            type="submit"
+            type="button"
             onClick={handleCancel}
-            className="px-6 py-2 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-700 transition duration-200"
+            className="px-6 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition duration-200"
+            className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
           >
             Create
           </button>
