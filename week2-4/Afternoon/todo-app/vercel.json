@@ -1,13 +1,4 @@
 {
-  "builds": [
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
-    }
-  ],
-  "env": {
-    "VITE_ESLINT_DISABLE": "true"
-  },
   "rewrites": [
     {
       "source": "/(.*)",
