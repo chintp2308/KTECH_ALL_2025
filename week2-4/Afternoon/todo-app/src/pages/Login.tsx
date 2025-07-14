@@ -39,7 +39,7 @@ export default function Login() {
     mode: "onChange",
     resolver: yupResolver(schema),
     defaultValues: {
-      username: "tungnt@softech.vn",
+      username: "tungnt@softtech.vn",
       password: "123456789",
     },
   });

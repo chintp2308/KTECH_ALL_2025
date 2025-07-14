@@ -1,10 +1,10 @@
 import "./App.css";
-import Login from "./pages/Login";
+import TaskManagement from "./index";
 
 function App() {
   return (
     <>
-      <Login />
+      <TaskManagement />
     </>
   );
 }
