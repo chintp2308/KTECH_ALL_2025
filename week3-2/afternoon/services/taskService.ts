@@ -20,9 +20,15 @@ export const getTasks = async (token?: string) => {
     headers: getAuthHeader(token),
   });
   const data = await res.json();
-  return Array.isArray(data) ? data.slice(0, 10) : [];
-};
 
+  // Trường hợp API trả về mảng trực tiếp
+  if (Array.isArray(data)) return data.slice(0, 10);
+
+  // Trường hợp API trả về object có thuộc tính `data`
+  if (Array.isArray(data?.data)) return data.data.slice(0, 10);
+  console.warn("⚠️ Unexpected response format from /workspaces/tasks:", data);
+  return [];
+};
 
 export const getTasksById = async (id: number, token?: string) => {
   const res = await fetch(`${baseUrl}/workspaces/tasks/${id}`, {

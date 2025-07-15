@@ -48,7 +48,12 @@ export default TaskISRPage;
 export const getStaticPaths: GetStaticPaths = async () => {
   const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
   const allTasks = await getTasks(token);
-  const tasks = Array.isArray(allTasks?.data) ? allTasks.data : allTasks;
+
+  const tasks = Array.isArray(allTasks)
+    ? allTasks
+    : Array.isArray(allTasks?.data)
+    ? allTasks.data
+    : [];
 
   const paths = tasks.slice(0, 10).map((task: Task) => ({
     params: { id: task.id?.toString() ?? "" },
