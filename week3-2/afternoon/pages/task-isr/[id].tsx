@@ -44,6 +44,7 @@ const TaskISRPage = ({ task }: Props) => {
 };
 
 export default TaskISRPage;
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
   const allTasks = await getTasks(token);
@@ -52,16 +53,25 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   if (Array.isArray(allTasks)) {
     tasks = allTasks;
-  } else if (typeof allTasks === "object" && Array.isArray(allTasks.data)) {
+  } else if (typeof allTasks === "object" && Array.isArray(allTasks?.data)) {
     tasks = allTasks.data;
   } else {
-    console.error("Unexpected tasks structure:", allTasks);
-    tasks = [];
+    console.error("❌ Dữ liệu tasks không hợp lệ:", allTasks);
+    return {
+      paths: [],
+      fallback: "blocking",
+    };
   }
 
-  const paths = tasks.slice(0, 10).map((task) => ({
-    params: { id: task.id?.toString() ?? "" },
-  }));
+  // Lọc và tạo đường dẫn
+  const paths = tasks
+    .filter(
+      (task) => typeof task.id === "number" || typeof task.id === "string"
+    )
+    .slice(0, 10)
+    .map((task) => ({
+      params: { id: task.id!.toString() },
+    }));
 
   return {
     paths,
@@ -77,14 +87,20 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 
   const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
-  const task = await getTasksById(Number(id), token);
 
-  if (!task?.id) {
+  try {
+    const task = await getTasksById(Number(id), token);
+
+    if (!task || !task.id) {
+      return { notFound: true };
+    }
+
+    return {
+      props: { task },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error("❌ Lỗi khi gọi getTasksById:", error);
     return { notFound: true };
   }
-
-  return {
-    props: { task },
-    revalidate: 60,
-  };
 };
