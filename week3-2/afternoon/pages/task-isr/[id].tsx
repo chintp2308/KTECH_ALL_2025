@@ -44,18 +44,22 @@ const TaskISRPage = ({ task }: Props) => {
 };
 
 export default TaskISRPage;
-
 export const getStaticPaths: GetStaticPaths = async () => {
   const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
   const allTasks = await getTasks(token);
 
-  const tasks = Array.isArray(allTasks)
-    ? allTasks
-    : Array.isArray(allTasks?.data)
-    ? allTasks.data
-    : [];
+  let tasks: Task[] = [];
 
-  const paths = tasks.slice(0, 10).map((task: Task) => ({
+  if (Array.isArray(allTasks)) {
+    tasks = allTasks;
+  } else if (typeof allTasks === "object" && Array.isArray(allTasks.data)) {
+    tasks = allTasks.data;
+  } else {
+    console.error("Unexpected tasks structure:", allTasks);
+    tasks = [];
+  }
+
+  const paths = tasks.slice(0, 10).map((task) => ({
     params: { id: task.id?.toString() ?? "" },
   }));
 
