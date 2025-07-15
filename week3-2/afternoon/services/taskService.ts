@@ -15,13 +15,14 @@ const getAuthHeader = (token?: string) => {
     }`,
   };
 };
-
 export const getTasks = async (token?: string) => {
   const res = await fetch(`${baseUrl}/workspaces/tasks`, {
     headers: getAuthHeader(token),
   });
-  return res.json();
+  const data = await res.json();
+  return Array.isArray(data) ? data.slice(0, 10) : [];
 };
+
 
 export const getTasksById = async (id: number, token?: string) => {
   const res = await fetch(`${baseUrl}/workspaces/tasks/${id}`, {
