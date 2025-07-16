@@ -1,18 +1,53 @@
 // pages/task-isr/[id].tsx
-
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticProps, GetStaticPaths } from "next";
 import { getTasks, getTasksById } from "@/services/taskService";
 import { Task } from "@/types/task";
 
-type Props = {
-  task: Task;
+export const revalidate = 60; // ISR revalidation period in seconds
+
+// Generate static paths for valid task IDs
+export const getStaticPaths: GetStaticPaths = async () => {
+  const tasks: Task[] = await getTasks();
+  const paths = tasks
+    .filter((task) => typeof task.id === "number" && task.id > 0)
+    .map((task) => ({
+      params: { id: task.id?.toString() || "" },
+    }));
+
+  return {
+    paths,
+    fallback: "blocking", // Use 'blocking' for ISR with dynamic routes
+  };
 };
 
-const TaskISRPage = ({ task }: Props) => {
+// Fetch task data for the page
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // Validate params and id
+  if (!params || !params.id) {
+    return { notFound: true };
+  }
+
+  const idNumber = Number(params.id);
+  if (isNaN(idNumber) || idNumber <= 0) {
+    return { notFound: true };
+  }
+
+  const task: Task | null = await getTasksById(idNumber);
+  if (!task || typeof task.id !== "number") {
+    return { notFound: true };
+  }
+
+  return {
+    props: { task },
+    revalidate: 60, // ISR revalidation
+  };
+};
+
+// Component to render task details
+export default function TaskISR({ task }: { task: Task }) {
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">📋 Công việc (ISR)</h1>
-
       <ul className="space-y-3">
         <li>
           <strong>Tiêu đề:</strong> {task.title}
@@ -41,66 +76,4 @@ const TaskISRPage = ({ task }: Props) => {
       </ul>
     </div>
   );
-};
-
-export default TaskISRPage;
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
-  const allTasks = await getTasks(token);
-
-  let tasks: Task[] = [];
-
-  if (Array.isArray(allTasks)) {
-    tasks = allTasks;
-  } else if (typeof allTasks === "object" && Array.isArray(allTasks?.data)) {
-    tasks = allTasks.data;
-  } else {
-    console.error("❌ Dữ liệu tasks không hợp lệ:", allTasks);
-    return {
-      paths: [],
-      fallback: "blocking",
-    };
-  }
-
-  // Lọc và tạo đường dẫn
-  const paths = tasks
-    .filter(
-      (task) => typeof task.id === "number" || typeof task.id === "string"
-    )
-    .slice(0, 10)
-    .map((task) => ({
-      params: { id: task.id!.toString() },
-    }));
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const { id } = context.params ?? {};
-
-  if (!id || Array.isArray(id)) {
-    return { notFound: true };
-  }
-
-  const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
-
-  try {
-    const task = await getTasksById(Number(id), token);
-
-    if (!task || !task.id) {
-      return { notFound: true };
-    }
-
-    return {
-      props: { task },
-      revalidate: 60,
-    };
-  } catch (error) {
-    console.error("❌ Lỗi khi gọi getTasksById:", error);
-    return { notFound: true };
-  }
-};
+}
