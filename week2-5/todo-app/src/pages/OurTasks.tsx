@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import { getTasks } from "../services/service";
 import type { Task } from "../types";
+import { useNavigate } from "react-router-dom";
 
 const OurTasks = () => {
-  const [tasks, setTasks] = React.useState([]);
+  const [tasks, setTasks] = React.useState<Task[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
         const tasks = await getTasks();
-        console.log(tasks);
         setTasks(tasks);
       } catch (error) {
         console.error(error);
@@ -18,12 +19,16 @@ const OurTasks = () => {
     fetchTasks();
   }, []);
 
+  const handleOnClick = (id: number) => {
+    navigate(`/update-task/${id}`);
+  };
+
   return (
     <div>
       <h1 className="text-2xl font-bold text-green-500">Our Tasks</h1>
-      <div className="w-full p-4 ">
+      <div className="w-full p-4">
         <table className="w-full">
-          <thead className="bg-gray-100  text-center border border-green-300">
+          <thead className="bg-gray-100 text-center border border-green-300">
             <tr>
               <th>ID</th>
               <th>Title</th>
@@ -56,7 +61,12 @@ const OurTasks = () => {
                 </td>
                 <td>{task.assignee_id}</td>
                 <td>
-                  <button>Edit</button>
+                  <button
+                    className="text-blue-500 hover:underline"
+                    onClick={() => handleOnClick(task.id)}
+                  >
+                    Edit
+                  </button>
                 </td>
               </tr>
             ))}
@@ -66,4 +76,5 @@ const OurTasks = () => {
     </div>
   );
 };
+
 export default OurTasks;

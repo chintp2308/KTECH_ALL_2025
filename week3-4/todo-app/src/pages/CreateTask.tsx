@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { updateTask } from "../services/service";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
+import { createTask } from "../services";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import type { Task } from "../types";
 import * as yup from "yup";
 
 interface TaskFormData {
@@ -55,32 +57,30 @@ const schema: yup.ObjectSchema<TaskFormData> = yup.object({
     .min(1, "Assignee ID must be greater than 0"),
 });
 
-const UpdateTask = () => {
+const CreateTask = () => {
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TaskFormData>({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      assignee_id: 0,
-      title: "",
-      start_date: "",
-      due_date: "",
-      description: "",
-      status: "to_do",
-      priority: "low",
-    },
-    mode: "onChange",
-  });
+  } = useForm<TaskFormData>({ resolver: yupResolver(schema) });
 
-  const onSubmit: SubmitHandler<TaskFormData> = async (data) => {
+  const onSubmit = async (data: TaskFormData) => {
     try {
-      await updateTask(data);
+      const taskData: Task = {
+        ...data,
+        start_date: new Date(data.start_date),
+        due_date: data.due_date ? new Date(data.due_date) : undefined,
+        completed_date: data.status === "done" ? new Date() : undefined,
+        created_time: new Date(),
+        updated_time: new Date(),
+      };
+      await createTask(taskData);
+      toast.success("Task created successfully");
       navigate("/our-tasks");
     } catch (error) {
-      console.error(error);
+      console.error("Error creating task:", error);
+      toast.error("Failed to create task");
     }
   };
 
@@ -232,7 +232,7 @@ const UpdateTask = () => {
             type="submit"
             className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
           >
-            Update
+            Create
           </button>
         </div>
       </form>
@@ -240,4 +240,4 @@ const UpdateTask = () => {
   );
 };
 
-export default UpdateTask;
+export default CreateTask;

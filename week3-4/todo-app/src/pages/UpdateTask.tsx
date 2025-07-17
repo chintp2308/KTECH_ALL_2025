@@ -1,8 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import { updateTask } from "../services/service";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { getTaskById, updateTask } from "../services";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import type { Task } from "../types";
 import * as yup from "yup";
+import { useEffect, useState } from "react";
+import { useAuthStore } from "../useAuthStore";
 
 interface TaskFormData {
   title: string;
@@ -44,55 +48,90 @@ const schema: yup.ObjectSchema<TaskFormData> = yup.object({
   status: yup
     .mixed<"to_do" | "in_progress" | "done">()
     .required("Status is required")
-    .oneOf(["to_do", "in_progress", "done"]),
+    .oneOf(["to_do", "in_progress", "done"], "Please select a valid status"),
   priority: yup
     .mixed<"low" | "medium" | "high">()
     .required("Priority is required")
-    .oneOf(["low", "medium", "high"]),
+    .oneOf(["low", "medium", "high"], "Please select a valid priority"),
   assignee_id: yup
     .number()
     .optional()
-    .min(1, "Assignee ID must be greater than 0"),
+    .min(1, "Assignee ID cannot be empty if provided"),
 });
 
 const UpdateTask = () => {
   const navigate = useNavigate();
+  const { loggedInUser } = useAuthStore((state) => state);
+  const { id } = useParams();
+  const [task, setTask] = useState<Task | null>(null);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<TaskFormData>({
+  } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: {
-      assignee_id: 0,
-      title: "",
-      start_date: "",
-      due_date: "",
-      description: "",
-      status: "to_do",
-      priority: "low",
-    },
-    mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<TaskFormData> = async (data) => {
-    try {
-      await updateTask(data);
+  const isAdmin = loggedInUser?.roles?.some(
+    (role) => role.name === "Administrators"
+  );
+
+  useEffect(() => {
+    if (!isAdmin) {
+      toast.error("You do not have permission to edit tasks");
       navigate("/our-tasks");
-    } catch (error) {
-      console.error(error);
     }
-  };
+  }, [isAdmin, navigate]);
 
   const handleCancel = () => {
     navigate("/our-tasks");
   };
 
+  useEffect(() => {
+    const fetchTask = async () => {
+      if (id !== undefined) {
+        try {
+          const data = await getTaskById(id);
+          if (!data) {
+            throw new Error("Task not found");
+          }
+          reset({
+            title: data.title,
+            description: data.description,
+            priority: data.priority,
+            start_date: data.start_date
+              ? new Date(data.start_date).toISOString().split("T")[0]
+              : "",
+            due_date: data.due_date
+              ? new Date(data.due_date).toISOString().split("T")[0]
+              : "",
+            status: data.status,
+            assignee_id: data.assignee_id,
+          });
+          setTask(data);
+        } catch (error) {
+          console.error("Error fetching task:", error);
+        }
+      }
+    };
+    fetchTask();
+  }, [id, reset]);
+
+  const onSubmit = async (data: TaskFormData) => {
+    try {
+      const updatedTask = { ...task, ...data } as unknown as Task;
+      await updateTask(updatedTask);
+      navigate("/our-tasks");
+      toast.success("Task updated successfully");
+    } catch (error) {
+      console.error("Error updating task:", error);
+      toast.error("Failed to update task");
+    }
+  };
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white rounded-3xl shadow-lg  mt-10 border border-green-200">
-      <h1 className="text-3xl font-bold mb-6 text-green-600">
-        📝 Create New Task
-      </h1>
+      <h1 className="text-3xl font-bold mb-6 text-green-600">📝 Update Task</h1>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
