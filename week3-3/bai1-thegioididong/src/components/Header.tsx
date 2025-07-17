@@ -4,15 +4,15 @@ import Link from "next/link";
 const Header = () => {
   return (
     <header className="w-full">
-      <div className="w-full h-11 relative">
+      <div className="relative w-full aspect-[27/1]">
         <Image
           src="/banner1.png"
-          alt="Banner image for PC Shop"
+          alt="Banner"
           fill
           className="object-cover"
           sizes="100vw"
           priority
-          quality={75} // Optimize for LCP
+          quality={75}
         />
       </div>
 
