@@ -5,27 +5,24 @@ import Login from "./Login";
 import CreateTask from "./CreateTask";
 import UpdateTask from "./UpdateTask";
 import MainLayout from "../components/MainLayout";
-import { useAuthStore } from "../useAuthStore";
 import AccessDenied from "./AccessDenied";
 
 const TasksManagement = () => {
-  const loggedInUser = useAuthStore((state) => state.loggedInUser);
+  // const loggedInUser = useAuthStore((state) => state.loggedInUser);
   return (
     <BrowserRouter>
       <Routes>
         <Route index element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route element={<MainLayout />}>
-          {loggedInUser && (
-            <>
-              <Route path="/our-tasks" element={<OurTasks />} />
-              <Route path="/my-tasks" element={<MyTasks />} />
-              <Route path="/create-task" element={<CreateTask />} />
-              <Route path="/update-task/:id" element={<UpdateTask />} />
-              <Route path="/access-denied" element={<AccessDenied />} />
-              <Route path="*" element={<AccessDenied />} />
-            </>
-          )}
+          <>
+            <Route path="/our-tasks" element={<OurTasks />} />
+            <Route path="/my-tasks" element={<MyTasks />} />
+            <Route path="/create-task" element={<CreateTask />} />
+            <Route path="/update-task/:id" element={<UpdateTask />} />
+            <Route path="/access-denied" element={<AccessDenied />} />
+            <Route path="*" element={<AccessDenied />} />
+          </>
         </Route>
       </Routes>
     </BrowserRouter>

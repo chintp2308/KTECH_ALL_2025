@@ -27,6 +27,7 @@ const schema = yup
 
 export default function Login() {
   const loggedInUser = useAuthStore((state) => state.loggedInUser);
+  const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
   const {
     register,
@@ -43,25 +44,32 @@ export default function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const onSubmit = async (data: FormInput): Promise<void> => {
+    login({
+      username: data.username,
+      password: data.password,
+      navigate: navigate,
+    });
+    toast.success("Login succeed!");
+
+    // try {
+    //   await useAuthStore.getState().login({
+    //     username: data.username,
+    //     password: data.password,
+    //     navigate,
+    //   });
+    //   toast.success("Login succeed!");
+    // } catch (error: any) {
+    //   toast.error("Login failed. Please check credentials.");
+    //   console.error("Login error:", error?.response?.data || error.message);
+    // }
+  };
+
   useEffect(() => {
     if (loggedInUser) {
       navigate("/our-tasks");
     }
   }, [loggedInUser, navigate]);
-
-  const onSubmit = async (data: FormInput) => {
-    try {
-      await useAuthStore.getState().login({
-        username: data.username,
-        password: data.password,
-        navigate,
-      });
-      toast.success("Login succeed!");
-    } catch (error: any) {
-      toast.error("Login failed. Please check credentials.");
-      console.error("Login error:", error?.response?.data || error.message);
-    }
-  };
 
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50">

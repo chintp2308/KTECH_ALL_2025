@@ -36,12 +36,11 @@ const OurTasks = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const tasks = (await apiClient.get("/workspaces/tasks")) as any[];
+        const tasks = (await apiClient.get("/workspaces/tasks")) as Task[];
         setAllTasks(tasks);
         setFilteredTasks(tasks);
       } catch (error) {
         console.error("Error fetching data:", error);
-        toast.error("Failed to load tasks. Please try again.");
       }
     };
     fetchData();
@@ -52,16 +51,11 @@ const OurTasks = () => {
   };
 
   const handleDelete = async (taskId: number) => {
-    try {
-      await deleteTask(taskId.toString());
-      const updatedTasks = allTasks.filter((task) => task.id !== taskId);
-      setAllTasks(updatedTasks);
-      setFilteredTasks(updatedTasks);
-      toast.success("Task deleted successfully");
-    } catch (error) {
-      console.error("Error deleting task:", error);
-      toast.error("Error deleting task");
-    }
+    await deleteTask(taskId.toString());
+    const updatedTasks = allTasks.filter((task) => task.id !== taskId);
+    setAllTasks(updatedTasks);
+    setFilteredTasks(updatedTasks);
+    toast.success("Task deleted successfully");
   };
 
   const handleSearch = (filters: Filter) => {
