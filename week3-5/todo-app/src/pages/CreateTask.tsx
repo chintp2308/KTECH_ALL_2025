@@ -1,12 +1,10 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getTaskById, updateTask } from "../services";
+import { createTask } from "../services";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { Task } from "../types";
 import * as yup from "yup";
-import { useEffect, useState } from "react";
-import { useAuthStore } from "../useAuthStore";
 
 interface TaskFormData {
   title: string;
@@ -48,90 +46,53 @@ const schema: yup.ObjectSchema<TaskFormData> = yup.object({
   status: yup
     .mixed<"to_do" | "in_progress" | "done">()
     .required("Status is required")
-    .oneOf(["to_do", "in_progress", "done"], "Please select a valid status"),
+    .oneOf(["to_do", "in_progress", "done"]),
   priority: yup
     .mixed<"low" | "medium" | "high">()
     .required("Priority is required")
-    .oneOf(["low", "medium", "high"], "Please select a valid priority"),
+    .oneOf(["low", "medium", "high"]),
   assignee_id: yup
     .number()
     .optional()
-    .min(1, "Assignee ID cannot be empty if provided"),
+    .min(1, "Assignee ID must be greater than 0"),
 });
 
-const UpdateTask = () => {
+const CreateTask = () => {
   const navigate = useNavigate();
-  const { loggedInUser } = useAuthStore((state) => state);
-  const { id } = useParams();
-  const [task, setTask] = useState<Task | null>(null);
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  } = useForm<TaskFormData>({ resolver: yupResolver(schema) });
 
-  const isAdmin = loggedInUser?.roles?.some(
-    (role) => role.name === "Administrators"
-  );
-
-  useEffect(() => {
-    if (!isAdmin) {
-      toast.error("You do not have permission to edit tasks");
+  const onSubmit = async (data: TaskFormData) => {
+    try {
+      const taskData: Task = {
+        ...data,
+        start_date: new Date(data.start_date),
+        due_date: data.due_date ? new Date(data.due_date) : undefined,
+        completed_date: data.status === "done" ? new Date() : undefined,
+        created_time: new Date(),
+        updated_time: new Date(),
+      };
+      await createTask(taskData);
+      toast.success("Task created successfully");
       navigate("/our-tasks");
+    } catch (error) {
+      console.error("Error creating task:", error);
+      toast.error("Failed to create task");
     }
-  }, [isAdmin, navigate]);
+  };
 
   const handleCancel = () => {
     navigate("/our-tasks");
   };
 
-  useEffect(() => {
-    const fetchTask = async () => {
-      if (id !== undefined) {
-        try {
-          const data = await getTaskById(Number(id));
-          if (!data) {
-            throw new Error("Task not found");
-          }
-          reset({
-            title: data.title,
-            description: data.description,
-            priority: data.priority,
-            start_date: data.start_date
-              ? new Date(data.start_date).toISOString().split("T")[0]
-              : "",
-            due_date: data.due_date
-              ? new Date(data.due_date).toISOString().split("T")[0]
-              : "",
-            status: data.status,
-            assignee_id: data.assignee_id,
-          });
-          setTask(data);
-        } catch (error) {
-          console.error("Error fetching task:", error);
-        }
-      }
-    };
-    fetchTask();
-  }, [id, reset]);
-
-  const onSubmit = async (data: TaskFormData) => {
-    try {
-      const updatedTask = { ...task, ...data } as unknown as Task;
-      await updateTask(updatedTask);
-      navigate("/our-tasks");
-      toast.success("Task updated successfully");
-    } catch (error) {
-      console.error("Error updating task:", error);
-      toast.error("Failed to update task");
-    }
-  };
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white rounded-3xl shadow-lg  mt-10 border border-green-200">
-      <h1 className="text-3xl font-bold mb-6 text-green-600">📝 Update Task</h1>
+      <h1 className="text-3xl font-bold mb-6 text-green-600">
+        📝 Create New Task
+      </h1>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -271,7 +232,7 @@ const UpdateTask = () => {
             type="submit"
             className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
           >
-            Update
+            Create
           </button>
         </div>
       </form>
@@ -279,4 +240,4 @@ const UpdateTask = () => {
   );
 };
 
-export default UpdateTask;
+export default CreateTask;
